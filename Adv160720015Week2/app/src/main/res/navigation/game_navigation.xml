@@ -3,16 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/game_navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/itemHome">
 
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/itemHome"
         android:name="com.example.adv160720015week2.MainFragment"
         android:label="Main"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/actionGameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/gameFragment" />
+        <action
+            android:id="@+id/actionOptionsFragment"
+            app:destination="@id/optionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -24,7 +28,9 @@
             app:argType="string" />
         <action
             android:id="@+id/actionResultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/resultFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -33,9 +39,25 @@
         tools:layout="@layout/fragment_result" >
         <action
             android:id="@+id/actionMainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/itemHome"
+            app:popUpTo="@id/itemHome" />
         <argument
             android:name="score"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/itemHistory"
+        android:name="com.example.adv160720015week2.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/itemProfile"
+        android:name="com.example.adv160720015week2.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <dialog
+        android:id="@+id/optionsFragment"
+        android:name="com.example.adv160720015week2.OptionsFragment"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_options" />
 </navigation>

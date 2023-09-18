@@ -31,6 +31,12 @@ class MainFragment : Fragment() {
             val action = MainFragmentDirections.actionGameFragment(playerName)
             Navigation.findNavController(it).navigate(action)
         }
+
+        val btnOptions= view.findViewById<Button>(R.id.btnOption)
+        btnOptions.setOnClickListener{
+            val action = MainFragmentDirections.actionOptionsFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
 }
