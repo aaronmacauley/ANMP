@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.anmp_week4.R
 import com.example.anmp_week4.viewmodel.ListViewModel
 
@@ -32,9 +33,18 @@ class StudentListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         viewModel.refresh()
+
         val recView = view.findViewById<RecyclerView>(R.id.rcView)
         recView.layoutManager = LinearLayoutManager(context)
         recView.adapter = studentListAdapter
+
+        val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshStudent)
+
+        swipe.setOnRefreshListener {
+            viewModel.refresh()
+            swipe.isRefreshing=false
+        }
+
         observeViewModel()
     }
     fun observeViewModel() {
