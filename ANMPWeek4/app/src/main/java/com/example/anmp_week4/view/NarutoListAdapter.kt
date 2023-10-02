@@ -24,11 +24,27 @@ class NarutoListAdapter(val Naruto:ArrayList<Naruto>):RecyclerView.Adapter<Narut
     }
 
     override fun onBindViewHolder(holder: NarutoViewHolder, position: Int) {
-        var txtResult = holder.itemView.findViewById<TextView>(R.id.txtResult)
         var name = Naruto[position].name
         var village = Naruto[position].village
         var rank = Naruto[position].rank
-        txtResult.text= "$name-$village-$rank"
+        var age =  Naruto[position].age
+        var team = Naruto[position].team
+        var status = Naruto[position].status
+
+        var txtName = holder.itemView.findViewById<TextView>(R.id.txtNama)
+        var txtVillage = holder.itemView.findViewById<TextView>(R.id.txtVillage)
+        var txtAge = holder.itemView.findViewById<TextView>(R.id.txtAge)
+        var txtTeam = holder.itemView.findViewById<TextView>(R.id.txtTeam)
+        var txtRank = holder.itemView.findViewById<TextView>(R.id.txtRank)
+        var txtStatus = holder.itemView.findViewById<TextView>(R.id.txtStatus)
+
+        txtName.text= "$name"
+        txtVillage.text= "$village"
+        txtAge.text= "$age"
+        txtTeam.text= "$team"
+        txtRank.text= "$rank"
+        txtStatus.text="$status"
+
     }
     fun updateNarutoList(newNaruto: ArrayList<Naruto>) {
         Naruto.clear()
