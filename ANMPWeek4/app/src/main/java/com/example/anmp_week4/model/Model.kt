@@ -12,3 +12,19 @@
      @SerializedName("photo_url")
      val photoUrl:String
  )
+
+ data class Naruto(
+     val id: Int?,
+     val name: String?,
+     val age: Int?,
+     val village: String?,
+     val affiliation: String?,
+     val jutsu: List<String>?,
+     val rank: String?,
+     val team: String?,
+     val friends: List<String>?,
+     val enemies: List<String>?,
+     val status: String?
+ )
+
+
