@@ -43,9 +43,10 @@ class StudentDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        viewModel.fetch()
+
 
         val txtID = view.findViewById<EditText>(R.id.txtID)
+        viewModel.fetch(txtID.toString())
         val txtName = view.findViewById<EditText>(R.id.txtName)
         val txtBod = view.findViewById<EditText>(R.id.txtBod)
         val txtPhone = view.findViewById<EditText>(R.id.txtPhone)
