@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anmp_week4.R
@@ -39,9 +40,15 @@ class StudentListAdapter(val studentList:ArrayList<Student>)
         picasso.build().load(studentList[position].photoUrl).into(imgPhoto)
 
         txtID.text=studentList[position].id
+        val studentId=studentList[position].id.toString()
         txtName.text=studentList[position].name
         btnDetail.setOnClickListener{
-            val action = StudentListFragmentDirections.ActionStudentDetail()
+            Toast.makeText(
+                holder.itemView.context,
+                "Student Id $studentId",
+                Toast.LENGTH_SHORT
+            ).show()
+            val action = StudentListFragmentDirections.ActionStudentDetail(studentId)
             Navigation.findNavController(it).navigate(action)
         }
     }

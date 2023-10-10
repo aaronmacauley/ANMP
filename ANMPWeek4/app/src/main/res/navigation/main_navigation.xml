@@ -13,8 +13,7 @@
         <action
             android:id="@+id/ActionStudentDetail"
             app:destination="@id/studentDetailFragment" >
-            <argument
-                android:name="student_id" />
+
         </action>
     </fragment>
     <fragment
