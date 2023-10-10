@@ -10,7 +10,8 @@ import com.example.anmp_week4.model.Naruto
 
 import org.w3c.dom.Text
 
-class NarutoListAdapter(val Naruto:ArrayList<Naruto>):RecyclerView.Adapter<NarutoListAdapter.NarutoViewHolder>() {
+class NarutoListAdapter(val Naruto:ArrayList<Naruto>):
+    RecyclerView.Adapter<NarutoListAdapter.NarutoViewHolder>() {
     class NarutoViewHolder(v:View):RecyclerView.ViewHolder(v)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NarutoViewHolder {

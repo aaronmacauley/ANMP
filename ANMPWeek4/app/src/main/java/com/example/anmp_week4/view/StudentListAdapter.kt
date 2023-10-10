@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.Navigation
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anmp_week4.R
+import com.example.anmp_week4.view.StudentListFragmentDirections
 import com.example.anmp_week4.model.Student
 
 class StudentListAdapter(val studentList:ArrayList<Student>)
@@ -28,12 +31,20 @@ class StudentListAdapter(val studentList:ArrayList<Student>)
         val txtID = holder.itemView.findViewById<TextView>(R.id.txtID);
         val txtName = holder.itemView.findViewById<TextView>(R.id.txtName);
         val btnDetail = holder.itemView.findViewById<Button>(R.id.btnDetail)
+
+        val studentId = studentList[position].id.toString()
         txtID.text=studentList[position].id
         txtName.text=studentList[position].name
-        btnDetail.setOnClickListener{
-            val action = StudentListFragmentDirections.ActionStudentDetail()
+        btnDetail.setOnClickListener {
+            Toast.makeText(
+                holder.itemView.context,
+                "Student Id $studentId",
+                Toast.LENGTH_SHORT
+            ).show()
+            val action = StudentListFragmentDirections.ActionStudentDetail(studentId)
             Navigation.findNavController(it).navigate(action)
         }
+
     }
     fun updateStudentList(newStudentList: ArrayList<Student>) {
         studentList.clear()
