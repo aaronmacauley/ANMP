@@ -12,7 +12,10 @@
         tools:layout="@layout/fragment_student_list" >
         <action
             android:id="@+id/ActionStudentDetail"
-            app:destination="@id/studentDetailFragment" />
+            app:destination="@id/studentDetailFragment" >
+            <argument
+                android:name="student_id" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/studentDetailFragment"

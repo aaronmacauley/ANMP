@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.Navigation
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anmp_week4.R
-import com.example.anmp_week4.view.StudentListFragmentDirections
 import com.example.anmp_week4.model.Student
+import com.squareup.picasso.Picasso
 
 class StudentListAdapter(val studentList:ArrayList<Student>)
     :RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>(){
@@ -31,20 +30,20 @@ class StudentListAdapter(val studentList:ArrayList<Student>)
         val txtID = holder.itemView.findViewById<TextView>(R.id.txtID);
         val txtName = holder.itemView.findViewById<TextView>(R.id.txtName);
         val btnDetail = holder.itemView.findViewById<Button>(R.id.btnDetail)
+        val imgPhoto = holder.itemView.findViewById<ImageView>(R.id.imgStudent)
 
-        val studentId = studentList[position].id.toString()
+        val picasso = Picasso.Builder(holder.itemView.context)
+        picasso.listener { picasso, uri, exception ->
+            exception.printStackTrace()
+        }
+        picasso.build().load(studentList[position].photoUrl).into(imgPhoto)
+
         txtID.text=studentList[position].id
         txtName.text=studentList[position].name
-        btnDetail.setOnClickListener {
-            Toast.makeText(
-                holder.itemView.context,
-                "Student Id $studentId",
-                Toast.LENGTH_SHORT
-            ).show()
-            val action = StudentListFragmentDirections.ActionStudentDetail(studentId)
+        btnDetail.setOnClickListener{
+            val action = StudentListFragmentDirections.ActionStudentDetail()
             Navigation.findNavController(it).navigate(action)
         }
-
     }
     fun updateStudentList(newStudentList: ArrayList<Student>) {
         studentList.clear()

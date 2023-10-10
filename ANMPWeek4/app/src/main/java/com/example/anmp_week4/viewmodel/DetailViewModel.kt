@@ -1,15 +1,19 @@
 package com.example.anmp_week4.viewmodel
 
+import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.anmp_week4.model.Student
-import org.json.JSONException
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-class DetailViewModel(private val requestQueue: RequestQueue): ViewModel() {
+class DetailViewModel(application: Application):AndroidViewModel (application) {
     val studentLD = MutableLiveData<Student>()
 
 //    fun fetch() {
@@ -22,32 +26,22 @@ class DetailViewModel(private val requestQueue: RequestQueue): ViewModel() {
 //        )
 //        studentLD.value = student1
 //    }
-fun fetch(id: String) {
-    val url = "http://adv.jitusolution.com/student.php?id=$id"
+    fun fetch(student_id: String) {
+        val url = "http://adv.jitusolution.com/student.php?id=$student_id"
+        val requestQueue = Volley.newRequestQueue(getApplication())
 
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
             { response ->
-                try {
-
-                    val studentId = response.getString("id")
-                    val studentName = response.getString("name")
-                    val studentBirthdate = response.getString("birthdate")
-                    val studentPhoneNumber = response.getString("phone_number")
-                    val studentImageUrl = response.getString("image_url")
-
-                    val student = Student(studentId, studentName, studentBirthdate, studentPhoneNumber, studentImageUrl)
-
-                    studentLD.value = student
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
+                val student = Gson().fromJson(response, Student::class.java)
+                studentLD.value = student
+                Log.d(TAG, "Student Data: $student")
             },
             { error ->
-                error.printStackTrace()
-            })
+                Log.e(TAG, "Error fetching student data: ${error.message}")
+            }
+        )
 
-        // Menambahkan request ke antrian Volley
-        requestQueue.add(jsonObjectRequest)
+        requestQueue.add(stringRequest)
     }
 }
