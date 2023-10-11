@@ -26,8 +26,8 @@ class DetailViewModel(application: Application):AndroidViewModel (application) {
 //        )
 //        studentLD.value = student1
 //    }
-    fun fetch(student_id: String) {
-        val url = "http://adv.jitusolution.com/student.php?id=$student_id"
+    fun fetch(studentId: String) {
+        val url = "http://adv.jitusolution.com/student.php?id=$studentId"
         val requestQueue = Volley.newRequestQueue(getApplication())
 
         val stringRequest = StringRequest(

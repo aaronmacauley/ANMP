@@ -42,43 +42,46 @@ class StudentDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+        if (arguments!=null){
+            viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
+            val txtID = view.findViewById<EditText>(R.id.txtID)
+            val studentId = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId
+            viewModel.fetch(studentId)
+            val txtName = view.findViewById<EditText>(R.id.txtName)
+            val txtBod = view.findViewById<EditText>(R.id.txtBod)
+            val txtPhone = view.findViewById<EditText>(R.id.txtPhone)
+            val btnUpdate = view?.findViewById<Button>(R.id.btnUpdate)
+            val imgDetailPhoto = view.findViewById<ImageView>(R.id.imgViewDetail)
 
-        val txtID = view.findViewById<EditText>(R.id.txtID)
-        viewModel.fetch(txtID.toString())
-        val txtName = view.findViewById<EditText>(R.id.txtName)
-        val txtBod = view.findViewById<EditText>(R.id.txtBod)
-        val txtPhone = view.findViewById<EditText>(R.id.txtPhone)
-        val btnUpdate = view?.findViewById<Button>(R.id.btnUpdate)
-        val imgDetailPhoto = view.findViewById<ImageView>(R.id.imgViewDetail)
-
-        viewModel.studentLD.observe(viewLifecycleOwner, Observer {
-            var student = it
-            txtID.setText(student.id)
-            txtName.setText(student.name)
-            txtBod.setText(student.dob)
-            txtPhone.setText(student.phone)
-            val picasso = Picasso.Builder(view.context)
-            picasso.listener { picasso, uri, exception ->
-                exception.printStackTrace()
-            }
-            picasso.build().load(student.photoUrl).into(imgDetailPhoto)
-
-        })
-        btnUpdate?.setOnClickListener {
-            Observable.timer(5, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    Log.d("Messages", "five seconds")
-                    MainActivity.showNotification(
-                        "new Notification",
-                        "A new notification created",
-                        R.drawable.twotone_save_24
-                    )
+            viewModel.studentLD.observe(viewLifecycleOwner, Observer {
+                var student = it
+                txtID.setText(student.id)
+                txtName.setText(student.name)
+                txtBod.setText(student.dob)
+                txtPhone.setText(student.phone)
+                val picasso = Picasso.Builder(view.context)
+                picasso.listener { picasso, uri, exception ->
+                    exception.printStackTrace()
                 }
+                picasso.build().load(student.photoUrl).into(imgDetailPhoto)
 
+            })
+            btnUpdate?.setOnClickListener {
+                Observable.timer(5, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        Log.d("Messages", "five seconds")
+                        MainActivity.showNotification(
+                            "new Notification",
+                            "A new notification created",
+                            R.drawable.twotone_save_24
+                        )
+                    }
+
+            }
         }
+
     }
 }

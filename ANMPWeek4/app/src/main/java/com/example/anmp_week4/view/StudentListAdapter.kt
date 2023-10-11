@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.anmp_week4.R
 import com.example.anmp_week4.model.Student
+import com.example.anmp_week4.view.StudentListFragmentDirections.Companion.ActionStudentDetail
 import com.squareup.picasso.Picasso
 
 class StudentListAdapter(val studentList:ArrayList<Student>)
