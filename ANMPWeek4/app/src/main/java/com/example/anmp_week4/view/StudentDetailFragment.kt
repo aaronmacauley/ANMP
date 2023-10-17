@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit
 
 class StudentDetailFragment : Fragment() {
     private lateinit var viewModel:DetailViewModel
+    var studentId:String?=null
 //    private val studentDetailAdapter = StudentDetailAdapter(arrayListOf())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,13 +47,20 @@ class StudentDetailFragment : Fragment() {
             viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
             val txtID = view.findViewById<EditText>(R.id.txtID)
-            val studentId = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId
-            viewModel.fetch(studentId)
+//            val studentId = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId
             val txtName = view.findViewById<EditText>(R.id.txtName)
             val txtBod = view.findViewById<EditText>(R.id.txtBod)
             val txtPhone = view.findViewById<EditText>(R.id.txtPhone)
             val btnUpdate = view?.findViewById<Button>(R.id.btnUpdate)
             val imgDetailPhoto = view.findViewById<ImageView>(R.id.imgViewDetail)
+
+            arguments?.let {
+                studentId = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId
+            }
+
+            studentId?.let {
+                viewModel.fetch(it, requireContext())
+            }
 
             viewModel.studentLD.observe(viewLifecycleOwner, Observer {
                 var student = it

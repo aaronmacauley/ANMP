@@ -14,6 +14,7 @@ import com.example.anmp_week4.model.Student
 import com.example.anmp_week4.view.StudentListFragmentDirections.Companion.ActionStudentDetail
 import com.squareup.picasso.Picasso
 
+
 class StudentListAdapter(val studentList:ArrayList<Student>)
     :RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>(){
     class StudentViewHolder(view:View):RecyclerView.ViewHolder(view)
@@ -41,8 +42,14 @@ class StudentListAdapter(val studentList:ArrayList<Student>)
         picasso.build().load(studentList[position].photoUrl).into(imgPhoto)
 
         txtID.text=studentList[position].id
-        val studentId=studentList[position].id.toString()
+        var idStudent=studentList[position].id
+
+        var studentId = idStudent.toString()
+
         txtName.text=studentList[position].name
+
+
+
         btnDetail.setOnClickListener{
             Toast.makeText(
                 holder.itemView.context,

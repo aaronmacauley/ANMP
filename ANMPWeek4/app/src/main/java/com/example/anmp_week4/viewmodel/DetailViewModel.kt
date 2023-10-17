@@ -2,18 +2,20 @@ package com.example.anmp_week4.viewmodel
 
 import android.app.Application
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.anmp_week4.model.Student
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class DetailViewModel(application: Application):AndroidViewModel (application) {
+class DetailViewModel: ViewModel(){
     val studentLD = MutableLiveData<Student>()
 
 //    fun fetch() {
@@ -26,9 +28,9 @@ class DetailViewModel(application: Application):AndroidViewModel (application) {
 //        )
 //        studentLD.value = student1
 //    }
-    fun fetch(studentId: String) {
+    fun fetch(studentId: String , context: Context) {
         val url = "http://adv.jitusolution.com/student.php?id=$studentId"
-        val requestQueue = Volley.newRequestQueue(getApplication())
+        val queue: RequestQueue = Volley.newRequestQueue(context)
 
         val stringRequest = StringRequest(
             Request.Method.GET, url,
@@ -42,6 +44,6 @@ class DetailViewModel(application: Application):AndroidViewModel (application) {
             }
         )
 
-        requestQueue.add(stringRequest)
+        queue.add(stringRequest)
     }
 }
