@@ -42,13 +42,9 @@ class StudentListAdapter(val studentList:ArrayList<Student>)
         picasso.build().load(studentList[position].photoUrl).into(imgPhoto)
 
         txtID.text=studentList[position].id
-        var idStudent=studentList[position].id
 
-        var studentId = idStudent.toString()
-
+        var studentId=studentList[position].id.toString()
         txtName.text=studentList[position].name
-
-
 
         btnDetail.setOnClickListener{
             Toast.makeText(

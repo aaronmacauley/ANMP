@@ -35,7 +35,7 @@ class DetailViewModel: ViewModel(){
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
-                val student = Gson().fromJson(response, Student::class.java)
+                val student = Gson().fromJson(response.toString(), Student::class.java)
                 studentLD.value = student
                 Log.d(TAG, "Student Data: $student")
             },
