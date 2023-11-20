@@ -12,9 +12,10 @@ data class Todo(
     var notes:String,
     @ColumnInfo(name="priority")
     var priority:Int,
-//    @ColumnInfo(name="is_done")
-//    var is_done:Int
+    @ColumnInfo(name="is_done")
+    var is_done:Int
 
+    //is done menggunakan int karena int akan dapat lebih fleksibel semisal 1 = sudah selesai 2 = terlambat 3= upcoming
 )
 {
     @PrimaryKey(autoGenerate = true)

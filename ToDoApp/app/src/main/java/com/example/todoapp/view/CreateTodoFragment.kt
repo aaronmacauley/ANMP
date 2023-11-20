@@ -18,14 +18,11 @@ import com.example.todoapp.viewmodel.DetailTodoViewModel
 
 class CreateTodoFragment : Fragment() {
 
-
-
     private lateinit var viewModel: DetailTodoViewModel
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(DetailTodoViewModel::class.java)
+
         val btnAdd = view.findViewById<Button>(R.id.btnAdd)
         val txtTitle = view.findViewById<EditText>(R.id.txtTitle)
         val txtNotes = view.findViewById<EditText>(R.id.txtNotes)
@@ -38,7 +35,7 @@ class CreateTodoFragment : Fragment() {
                 view.findViewById<RadioButton>(rdoGroup.checkedRadioButtonId)
 
             var todo = Todo(txtTitle.text.toString(),
-                txtNotes.text.toString(), radio.tag.toString().toInt())
+                txtNotes.text.toString(), radio.tag.toString().toInt(),0)
 
             val list = listOf(todo)
 

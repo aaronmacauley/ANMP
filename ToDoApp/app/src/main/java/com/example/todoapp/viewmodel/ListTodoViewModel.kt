@@ -44,20 +44,20 @@ class ListTodoViewModel(application: Application) : AndroidViewModel(application
             val db = Room.databaseBuilder(
                 getApplication(),
                 TodoDatabase::class.java, "newtododb").build()
-            db.todoDao().deleteTodo(todo)
+            db.todoDao().updateStatus(todo.uuid)
 
             val allTodos = db.todoDao().selectAllTodo()
             todoLD.postValue(allTodos)
         }
     }
 
-//    fun updateStatus(uuid:Int){
-//        launch {
-////            val db = util.buildDb(getApplication())
-//            val db= buildDb(getApplication())
-//            db.todoDao().updateStatus(uuid)
-//        }
-//    }
+    fun updateStatus(uuid:Int){
+        launch {
+//            val db = util.buildDb(getApplication())
+            val db= buildDb(getApplication())
+            db.todoDao().updateStatus(uuid)
+        }
+    }
 
 
 }
