@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.room.Room
 import com.example.todoapp.model.Todo
 import com.example.todoapp.model.TodoDatabase
+import com.example.todoapp.util.buildDb
 import com.example.todoapp.view.TodoListAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +50,14 @@ class ListTodoViewModel(application: Application) : AndroidViewModel(application
             todoLD.postValue(allTodos)
         }
     }
+
+//    fun updateStatus(uuid:Int){
+//        launch {
+////            val db = util.buildDb(getApplication())
+//            val db= buildDb(getApplication())
+//            db.todoDao().updateStatus(uuid)
+//        }
+//    }
 
 
 }

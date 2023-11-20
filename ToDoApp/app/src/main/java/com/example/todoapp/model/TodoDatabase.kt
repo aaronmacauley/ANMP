@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.todoapp.util.Util
+import com.example.todoapp.util.MIGRATION_1_2
 
 
-@Database(entities = [Todo::class], version = 2)
+@Database(entities = arrayOf(Todo::class), version = 2)
 abstract class TodoDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 
@@ -24,15 +24,11 @@ abstract class TodoDatabase : RoomDatabase() {
             }
         }
 
-        private fun buildDatabase(context: Context): TodoDatabase {
-            val util = Util() // Create an instance of Util
-            return Room.databaseBuilder(
-                context.applicationContext,
-                TodoDatabase::class.java,
-                "newtododb"
-            )
-                .addMigrations(util.MIGRATION_1_2) // Include the migration here
-                .build()
-        }
+        private fun buildDatabase(context:Context) = Room.databaseBuilder(
+            context.applicationContext,
+            TodoDatabase::class.java, "newtododb")
+            .addMigrations(MIGRATION_1_2)
+            .build()
+
     }
 }
