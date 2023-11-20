@@ -48,6 +48,7 @@ class EditTodoFragment : Fragment() {
         btnAdd.setOnClickListener {
             val radio = view.findViewById<RadioButton>(radioGroupPriority.checkedRadioButtonId)
 
+
             viewModel.update(
                 txtTitle.text.toString(), txtNotes.text.toString(),
                 radio.tag.toString().toInt(), uuid

@@ -2,6 +2,7 @@ package com.example.todoapp.model
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.Update
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,10 +19,10 @@ interface TodoDao {
     fun selectTodo(id:Int): Todo
 
     @Query("UPDATE todo SET title=:title, notes=:notes, priority=:priority WHERE uuid = :id")
-    suspend fun update(title: String, notes: String, priority: Int, id: Int): Int
+    suspend fun update(title: String, notes: String, priority: Int, id: Int)
 
 
-        @Delete
+    @Delete
     fun deleteTodo(todo:Todo)
 
 }
