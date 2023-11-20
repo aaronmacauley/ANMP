@@ -10,7 +10,9 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.example.todoapp.R
 import com.example.todoapp.viewmodel.DetailTodoViewModel
 
@@ -39,20 +41,36 @@ class EditTodoFragment : Fragment() {
         radioLow = view.findViewById(R.id.radioLow)
 
         txtJudulTodo.text = "Edit Todo"
+        btnAdd.text = "Save Changes"
 
         val uuid = EditTodoFragmentArgs.fromBundle(requireArguments()).uuid
+
+        btnAdd.setOnClickListener {
+            val radio = view.findViewById<RadioButton>(radioGroupPriority.checkedRadioButtonId)
+
+            viewModel.update(
+                txtTitle.text.toString(), txtNotes.text.toString(),
+                radio.tag.toString().toInt(), uuid
+            )
+            Toast.makeText(view.context, "Todo updated", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(it).popBackStack()
+        }
+
         viewModel.fetch(uuid)
         observeViewModel()
-
-
     }
+
     fun observeViewModel() {
         viewModel.todoLD.observe(viewLifecycleOwner, { todo ->
             txtTitle.setText(todo.title)
             txtNotes.setText(todo.notes)
+            when (todo.priority) {
+                1 -> radioLow.isChecked = true
+                2 -> radioMedium.isChecked = true
+                else -> radioHigh.isChecked = true
+            }
         })
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +79,4 @@ class EditTodoFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_todo, container, false)
     }
-
-
 }
