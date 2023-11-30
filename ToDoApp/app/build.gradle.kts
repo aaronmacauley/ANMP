@@ -9,6 +9,11 @@ android {
     namespace = "com.example.todoapp"
     compileSdk = 34
 
+    buildFeatures {
+        dataBinding = true
+    }
+
+
     defaultConfig {
         applicationId = "com.example.todoapp"
         minSdk = 24
@@ -28,6 +33,9 @@ android {
             )
         }
     }
+
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
