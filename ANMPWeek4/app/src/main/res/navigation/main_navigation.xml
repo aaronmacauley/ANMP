@@ -11,7 +11,7 @@
         android:label="fragment_student_list"
         tools:layout="@layout/fragment_student_list" >
         <action
-            android:id="@+id/ActionStudentDetail"
+            android:id="@+id/actionStudentDetail"
             app:destination="@id/studentDetailFragment" />
     </fragment>
     <fragment

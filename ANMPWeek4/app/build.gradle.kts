@@ -2,11 +2,17 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id ("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "com.example.anmp_week4"
     compileSdk = 34
+
+    buildFeatures {
+        dataBinding = true
+    }
+
 
     defaultConfig {
         applicationId = "com.example.anmp_week4"
