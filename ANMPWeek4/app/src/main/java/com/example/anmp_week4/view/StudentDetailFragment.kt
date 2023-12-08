@@ -14,10 +14,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.anmp_week4.R
+import com.example.anmp_week4.databinding.FragmentStudentDetailBinding
 import com.example.anmp_week4.model.Student
 import com.example.anmp_week4.viewmodel.DetailViewModel
 import com.example.anmp_week4.viewmodel.ListViewModel
@@ -28,16 +30,19 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class StudentDetailFragment : Fragment() {
+class StudentDetailFragment : Fragment(), ButtonDetailClickListener  {
     private lateinit var viewModel:DetailViewModel
     var studentId:String?=null
+    private lateinit var binding: FragmentStudentDetailBinding
 //    private val studentDetailAdapter = StudentDetailAdapter(arrayListOf())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_detail, container, false)
+//        return inflater.inflate(R.layout.fragment_student_detail, container, false)
+        binding = FragmentStudentDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,14 +50,21 @@ class StudentDetailFragment : Fragment() {
 
         if (arguments!=null){
             viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+//            val txtID = binding.txtID
+//            val txtName = binding.txtName
+//            val txtBod = binding.txtBod
+//            val txtPhone = binding.txtPhone
+//            val btnUpdate = binding.btnUpdate
 
-            val txtID = view.findViewById<EditText>(R.id.txtID)
+
+//            val txtID = view.findViewById<EditText>(R.id.txtID)
 //            val studentId = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId
-            val txtName = view.findViewById<EditText>(R.id.txtName)
-            val txtBod = view.findViewById<EditText>(R.id.txtBod)
-            val txtPhone = view.findViewById<EditText>(R.id.txtPhone)
-            val btnUpdate = view?.findViewById<Button>(R.id.btnUpdate)
-            val imgDetailPhoto = view.findViewById<ImageView>(R.id.imgViewDetail)
+//            val txtName = view.findViewById<EditText>(R.id.txtName)
+//            val txtBod = view.findViewById<EditText>(R.id.txtBod)
+//            val txtPhone = view.findViewById<EditText>(R.id.txtPhone)
+//            val btnUpdate = view?.findViewById<Button>(R.id.btnUpdate)
+//            val imgDetailPhoto = view.findViewById<ImageView>(R.id.imgViewDetail)
+
 
             arguments?.let {
                 studentId = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId
@@ -62,21 +74,45 @@ class StudentDetailFragment : Fragment() {
                 viewModel.fetch(it, requireContext())
             }
 
-            viewModel.studentLD.observe(viewLifecycleOwner, Observer {
-                var student = it
-                txtID.setText(student.id)
-                txtName.setText(student.name)
-                txtBod.setText(student.dob)
-                txtPhone.setText(student.phone)
-                val picasso = Picasso.Builder(view.context)
-                picasso.listener { picasso, uri, exception ->
-                    exception.printStackTrace()
-                }
-                picasso.build().load(student.photoUrl).into(imgDetailPhoto)
+//            viewModel.studentLD.observe(viewLifecycleOwner, Observer {
+//                var student = it
+//                txtID.setText(student.id)
+//                txtName.setText(student.name)
+//                txtBod.setText(student.dob)
+//                txtPhone.setText(student.phone)
+//                val picasso = Picasso.Builder(view.context)
+//                picasso.listener { picasso, uri, exception ->
+//                    exception.printStackTrace()
+//                }
+//                picasso.build().load(student.photoUrl).into(imgDetailPhoto)
+//
+//            })
 
+            viewModel.studentLD.observe(viewLifecycleOwner, Observer {
+                val student = it
+                binding.student = student
             })
-            btnUpdate?.setOnClickListener {
-                Observable.timer(5, TimeUnit.SECONDS)
+
+//            btnUpdate?.setOnClickListener {
+//                Observable.timer(5, TimeUnit.SECONDS)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe {
+//                        Log.d("Messages", "five seconds")
+//                        MainActivity.showNotification(
+//                            "new Notification",
+//                            "A new notification created",
+//                            R.drawable.twotone_save_24
+//                        )
+//                    }
+//
+//            }
+
+        }
+
+    }
+    override fun onButtonDetailClick(v: View) {
+        Observable.timer(5, TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
@@ -87,9 +123,5 @@ class StudentDetailFragment : Fragment() {
                             R.drawable.twotone_save_24
                         )
                     }
-
-            }
-        }
-
     }
 }
