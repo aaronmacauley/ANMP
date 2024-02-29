@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Todo(
+
     @ColumnInfo(name="title")
     var title:String,
     @ColumnInfo(name="notes")
